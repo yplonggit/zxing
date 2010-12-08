@@ -86,6 +86,7 @@ limitations under the License.
   <!-- Properties -->
 
   <property name="android-tools" value="${sdk.dir}/tools" />
+  <property name="android-platform-tools" value="${sdk.dir}/platform-tools" />
 
   <!-- Input directories -->
   <property name="source-folder" value="src" />
@@ -123,7 +124,7 @@ limitations under the License.
 
   <!-- Tools -->
   <condition property="exe" value=".exe" else=""><os family="windows"/></condition>
-  <property name="adb" value="${android-tools}/adb${exe}"/>
+  <property name="adb" value="${android-platform-tools}/adb${exe}"/>
 
   <!-- rules -->
 
@@ -239,7 +240,7 @@ limitations under the License.
               assets="${asset-folder}"
               androidjar="${android.jar}"
               outfolder="${out-folder}"
-              basename="${ant.project.name}" />
+              resourcefilename="${ant.project.name}.ap_" />
   </target>
 
   <!--
@@ -262,8 +263,7 @@ limitations under the License.
         outfolder="${out-folder}"
         resourcefile="BarcodeScanner.ap_"
         apkfilepath="${out-folder}/BarcodeScanner-debug.apk"
-        debug="true"
-        signed="true"
+        debugsigning="true"
         verbose="false">
       <dex path="${intermediate-dex-location}" />
       <sourcefolder path="${source-folder}" />
@@ -287,7 +287,6 @@ limitations under the License.
         resourcefile="BarcodeScanner.ap_"
         apkfilepath="${out-folder}/BarcodeScanner-unsigned.apk"
         debug="false"
-        signed="false"
         verbose="false">
       <dex path="${intermediate-dex-location}" />
       <sourcefolder path="${source-folder}" />

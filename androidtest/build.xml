@@ -86,6 +86,7 @@ limitations under the License.
   <!-- Properties -->
 
   <property name="android-tools" value="${sdk.dir}/tools" />
+  <property name="android-platform-tools" value="${sdk.dir}/platform-tools" />
 
   <!-- Input directories -->
   <property name="source-folder" value="src" />
@@ -126,7 +127,7 @@ limitations under the License.
 
   <!-- Tools -->
   <condition property="exe" value=".exe" else=""><os family="windows"/></condition>
-  <property name="adb" value="${android-tools}/adb${exe}"/>
+  <property name="adb" value="${android-platform-tools}/adb${exe}"/>
 
   <!-- rules -->
 
@@ -237,11 +238,12 @@ limitations under the License.
     <aaptexec executable="${aapt}"
               command="package"
               manifest="AndroidManifest.xml"
-              resources="${resource-folder}"
               assets="${asset-folder}"
               androidjar="${android.jar}"
-              outfolder="${out-folder}"
-              basename="${ant.project.name}" />
+              apkfolder="${out-folder}"
+              resourcefilename="ZXingTest.ap_">
+      <res path="${resource-folder}" />
+    </aaptexec>
   </target>
 
   <!--
@@ -262,10 +264,11 @@ limitations under the License.
   <target name="debug" depends="dex, package-resources">
     <apkbuilder
         outfolder="${out-folder}"
-        basename="${ant.project.name}"
-        signed="true"
+        resourcefile="ZXingTest.ap_"
+        apkfilepath="${out-folder}/ZXingTest-debug.apk"
+        debugsigning="true"
         verbose="false">
-      <file path="${intermediate-dex}" />
+      <dex path="${intermediate-dex}" />
       <sourcefolder path="${source-folder}" />
       <jarfolder path="${external-libs-folder}" />
       <nativefolder path="${native-libs-folder}" />
@@ -285,10 +288,10 @@ limitations under the License.
   <target name="release" depends="dex, package-resources">
     <apkbuilder
         outfolder="${out-folder}"
-        basename="${ant.project.name}"
-        signed="false"
+        resourcefile="ZXingTest.ap_"
+        apkfilepath="${out-folder}/ZXingTest-unsigned.apk"
         verbose="false">
-      <file path="${intermediate-dex}" />
+      <dex path="${intermediate-dex}" />
       <sourcefolder path="${source-folder}" />
       <jarfolder path="${external-libs-folder}" />
       <nativefolder path="${native-libs-folder}" />
