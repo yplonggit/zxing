@@ -1,0 +1,4 @@
+*/bin/*
+*/gen/*
+proguard-dump.txt
+build.properties
