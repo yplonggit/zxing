@@ -104,6 +104,14 @@ public final class IntentIntegrator {
 
   /**
    * See {@link #initiateScan(Activity, CharSequence, CharSequence, CharSequence, CharSequence)} --
+   * same, but uses default English labels and sets allowed barcode formats.
+   */
+  public static AlertDialog initiateScan(Activity activity, CharSequence stringDesiredBarcodeFormats) {
+    return initiateScan(activity, DEFAULT_TITLE, DEFAULT_MESSAGE, DEFAULT_YES, DEFAULT_NO, stringDesiredBarcodeFormats);
+  }
+
+  /**
+   * See {@link #initiateScan(Activity, CharSequence, CharSequence, CharSequence, CharSequence)} --
    * same, but takes string IDs which refer
    * to the {@link Activity}'s resource bundle entries.
    */
